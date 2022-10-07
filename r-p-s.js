@@ -14,8 +14,8 @@ function gameChoices(playerSelection,computerSelection) {
     playerSelection == 'Rock' && computerSelection == 'Paper'){
         return 'Computer Wins';
     } else {
-        return 'Draw'
-    }
+        return 'Draw';
+    };
 };
 
 let playerScore = 0;
