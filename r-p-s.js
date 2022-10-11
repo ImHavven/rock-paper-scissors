@@ -1,4 +1,4 @@
-const btns = document.querySelectorAll('.btn');
+const btns = document.querySelectorAll('button');
 let playerScore = 0;
 let computerScore = 0;
 
@@ -11,49 +11,42 @@ function computerPlay() {
 function disableBtn(){
     btns.forEach(btn => {
         btn.disabled = true;
-    })
-}
+    });
+};
 
 
-function gameChoices(playerSelection, computerSelection) {
-    let result = '';
+function gamePlay(playerSelection, computerSelection) {
+    let result = "";
     if (playerSelection == 'Rock' && computerSelection == 'Scissors' ||
     playerSelection == 'Scissors' && computerSelection === 'Paper'||
     playerSelection == 'Paper' && computerSelection == 'Rock') {
-        playerScore++;
+        playerScore += 1;
         result = ('You beaten ' + computerSelection + ' by choosing ' + playerSelection
                     + '<br>player Score: ' + playerScore + '<br>computer Score: ' + computerScore);
-        if (playerScore == 5){
-            result = '<br><br>You Win The Game';
+        if(playerScore == 5) {
+            result += '<br><br>You Win The Game';
             disableBtn();
-        }
+        };
     } else if (playerSelection == computerSelection){
-        computerScore++;
-        playerScore++;
         result = ('you both choose ' + playerSelection
                 + '<br>player Score: ' + playerScore + '<br>computer Score: ' + computerScore);
-            if(playerScore == 5 && computerScore == 5) {
-                result = '<br><br>It\'s Draw';
-                disableBtn();
-            }
     } else {
-        computerScore++;
+        computerScore += 1;
         result = ('You have been beaten by ' + computerSelection + ' by choosing ' + playerSelection
                     + '<br>player Score: ' + playerScore + '<br>computer Score: ' + computerScore);
         if(computerScore == 5){
-            result = '<br><br>The Computer Win the game ';
+            result += '<br><br>The Computer Win the game ';
             disableBtn();
-        }
+        };
     };
-    const resultRound = document.getElementById('result').innerHTML = result;
-    return resultRound;
+    return document.getElementById('result').innerHTML = result;
 };
 
 
 btns.forEach(button => {
     button.addEventListener('click', () =>{
         let playerChoice = button.getAttribute('id');
-        gameChoices(playerChoice, computerPlay());
+        gamePlay(playerChoice, computerPlay());
     });
 });
 
