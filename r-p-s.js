@@ -1,76 +1,86 @@
-const btns = document.querySelectorAll('button');
+const btns = document.querySelectorAll('.play');
+
+// The Score Between The Player & Computer..
 let playerScore = 0;
 let computerScore = 0;
 
-function computerPlay() {
-    var ran = ['Rock','Paper','Scissors'],
-        ran1 = ran[Math.floor(Math.random() * ran.length)];
-    return ran1;
+// This Func Will Get Computer A Random Choices.. 
+function getComputerChoice(){
+    const choices = ["rock", "paper", "scissors"];
+    return choices[Math.floor(Math.random()*choices.length)]
 };
 
+// This Will Disable The Buttons..
 function disableBtn(){
-    btns.forEach(btn => {
+    btns.forEach((btn) => {
         btn.disabled = true;
-    });
+    })
 };
 
+function playRound(playerSelection, computerSelection){
+    computerSelection = getComputerChoice();
+    let selectionLowerCase = playerSelection.toLowerCase(); // This Will Make The playerSelection Case Insensitive..
+    let result = '';
 
-function gamePlay(playerSelection, computerSelection) {
-    let result = "";
-    if (playerSelection == 'Rock' && computerSelection == 'Scissors' ||
-    playerSelection == 'Scissors' && computerSelection === 'Paper'||
-    playerSelection == 'Paper' && computerSelection == 'Rock') {
-        playerScore += 1;
-        result = ('You beaten ' + computerSelection + ' by choosing ' + playerSelection
-                    + '<br>player Score: ' + playerScore + '<br>computer Score: ' + computerScore);
-        if(playerScore == 5) {
-            result += '<br><br>You Win The Game';
-            disableBtn();
-        };
-    } else if (playerSelection == computerSelection){
-        result = ('you both choose ' + playerSelection
-                + '<br>player Score: ' + playerScore + '<br>computer Score: ' + computerScore);
+    //First if() Statement For The Choices
+    if( playerSelection == computerSelection){
+        result = `<br><br>Draw
+        <br><br> Score: Player ${playerScore} - ${computerScore} Computer`;
+    } else if(selectionLowerCase == 'rock' && computerSelection == 'scissors' ||
+    selectionLowerCase == 'paper' && computerSelection == 'rock' ||
+    selectionLowerCase == 'scissors' && computerSelection == 'paper'){
+        playerScore += 1; 
+        result = `<br><br>Your Play(${playerSelection}) Beats Computer Play(${computerSelection}) 
+        <br><br> Score: Player ${playerScore} - ${computerScore} Computer`;
     } else {
         computerScore += 1;
-        result = ('You have been beaten by ' + computerSelection + ' by choosing ' + playerSelection
-                    + '<br>player Score: ' + playerScore + '<br>computer Score: ' + computerScore);
-        if(computerScore == 5){
-            result += '<br><br>The Computer Win the game ';
-            disableBtn();
-        };
+        result = `<br><br>Computer Play(${computerSelection}) Beats Your Play(${playerSelection})
+        <br><br> Score: Player ${playerScore} - ${computerScore} Computer`;
     };
-    return document.getElementById('result').innerHTML = result;
+
+    //Second if() Statement For The Finale Result
+    if(playerScore == 5 && computerScore == 5){
+        result = `<br><br>It\'s a Draw With Score ${playerScore} - ${computerScore}`
+        disableBtn();
+     } else if(playerScore == 5){
+        result = `<br><br>You Win The Match With Score ${playerScore} - ${computerScore}`;
+        disableBtn();
+    } else if(computerScore == 5){
+        result = `<br><br>Computer Wins The Match With Score ${computerScore} - ${playerScore}`;
+        disableBtn();
+    }; 
+    return document.getElementById('result').innerHTML = result; // Here Will Be Displayed The Result Of The Game
 };
 
 
-btns.forEach(button => {
-    button.addEventListener('click', () =>{
-        let playerChoice = button.getAttribute('id');
-        gamePlay(playerChoice, computerPlay());
+//This Will Call playRound() Whenever You Hit The Buttons In The HTML Page To Play The Game...
+btns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        let Computer = getComputerChoice();
+        let plyrChoice = btn.getAttribute('id');
+        return playRound(plyrChoice, Computer);
     });
 });
 
 
 
 
-//This was for the game to be played on the console 
+//This Func Was Used Before To play The Game In The Console
 
-
-//function gamePlay(){
-//    if (playerScore == computerScore) {
-//        return "It's a Draw";
-//    } else if (computerScore > playerScore) {
-//        return "Computer Wins";
+//function game(){
+//    if(playerScore == computerScore){
+//        return div2.innerHTML = `It\'s a Draw With ${playerScore} - ${computerScore}`
+//    } else if (playerScore > computerScore){
+//        return div2.innerHTML = `You Win The Match With ${playerScore} - ${computerScore}`;
 //    } else {
-//        return "You Win the game player";
+//        return div2.innerHTML = `Computer Wins The Match With ${computerScore} - ${playerScore}`;
 //    };
-//};-
+//};
 
 
-//    for (let i = 0; i < 5; i++){
-//        let plays =  prompt("What's your play? (rock, paper, scissor)", "");
-//        let plays1 = plays.toLowerCase();
-//        let playerSelection = plays1;
-//        let computerSelection = computerPlay();
-//        console.log(gameChoices(playerSelection, computerSelection));
-//    };
+
+
+
+
+
+
