@@ -65,7 +65,7 @@ btns.forEach((btn) => {
 
 
 
-//This Func Was Used Before To play The Game In The Console
+//This Func Was Used to play the game in the Console...
 
 //function game(){
 //    if(playerScore == computerScore){
