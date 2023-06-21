@@ -19,16 +19,16 @@ function disableBtn(){
 
 function playRound(playerSelection, computerSelection){
     computerSelection = getComputerChoice();
-    let selectionLowerCase = playerSelection.toLowerCase(); // This Will Make The playerSelection Case Insensitive..
+    // let selectionLowerCase = playerSelection.toLowerCase(); // This Will Make The playerSelection Case Insensitive..
     let result = '';
 
     //First if() Statement For The Choices
     if( playerSelection == computerSelection){
         result = `<br><br>Draw
         <br><br> Score: Player ${playerScore} - ${computerScore} Computer`;
-    } else if(selectionLowerCase == 'rock' && computerSelection == 'scissors' ||
-    selectionLowerCase == 'paper' && computerSelection == 'rock' ||
-    selectionLowerCase == 'scissors' && computerSelection == 'paper'){
+    } else if(playerSelection == 'rock' && computerSelection == 'scissors' ||
+    playerSelection == 'paper' && computerSelection == 'rock' ||
+    playerSelection == 'scissors' && computerSelection == 'paper'){
         playerScore += 1; 
         result = `<br><br>Your Play(${playerSelection}) Beats Computer Play(${computerSelection}) 
         <br><br> Score: Player ${playerScore} - ${computerScore} Computer`;
@@ -51,6 +51,10 @@ function playRound(playerSelection, computerSelection){
     }; 
     return document.getElementById('result').innerHTML = result; // Here Will Be Displayed The Result Of The Game
 };
+
+// function playCheck() {
+//     if()
+// }
 
 
 //This Will Call playRound() Whenever You Hit The Buttons In The HTML Page To Play The Game...
